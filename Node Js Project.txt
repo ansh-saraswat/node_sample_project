@@ -1,0 +1,21 @@
+Node Js Project
+Step 1: Install Node.js
+Check if Node.js is installed:
+	node -v
+	npm -v
+
+Step 2: Create Your First Project
+Create a directory:
+	mkdir my-first-node-app
+	cd my-first-node-app
+	npm init -y		## This creates:<package.json>
+
+Step 3: Create Your First File
+	app.js
+Add:
+	console.log("Hello Node World!");
+Run:
+	node app.js
+Output:
+	Hello Node World!
+
