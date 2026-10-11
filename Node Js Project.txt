@@ -1,4 +1,4 @@
-Node Js Project
+Node Js Project (Use GitBash Terminal)
 Step 1: Install Node.js
 Check if Node.js is installed:
 	node -v
@@ -18,4 +18,29 @@ Run:
 	node app.js
 Output:
 	Hello Node World!
+Congratulations 🎉 You ran your first Node application.
 
+	git init
+	touch .gitignore
+Add:
+	node_modules
+	.env
+Commit code:
+	git add .
+	git commit -m "Initial commit"
+
+### Configure Git if not configured
+###		git config --global user.name "Anshul Sharma"
+###		git config --global user.email "ansh_saraswat@yahoo.com"	
+
+Add origin to git repo link
+git remote add origin https://github.com/ansh-saraswat/node_sample_project.git
+
+check current origin
+	git remote -v
+	git branch
+
+Rename master/current branch name to main
+git branch -M main
+
+git push -u origin main
