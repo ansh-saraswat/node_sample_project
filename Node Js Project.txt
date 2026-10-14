@@ -62,8 +62,7 @@ sudo npm install -g pm2​​
 mkdir -p ~/app​
 node -v && pm2 -v​
 
-
-Setup Secret in github
+Setup Secret in github 
 Settings > Secrets and variables > Actions​ >  Manage Environment Secret > 
 >>> Node_production > Add Envrionment Secret
 Your_Secret_Name	EC2_HOST​
