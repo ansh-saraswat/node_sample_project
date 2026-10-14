@@ -30,8 +30,8 @@ Commit code:
 	git commit -m "Initial commit"
 
 ### Configure Git if not configured
-###		git config --global user.name "Anshul Sharma"
-###		git config --global user.email "ansh_saraswat@yahoo.com"	
+###		git config --global user.name "<Name>"
+###		git config --global user.email "<Email-ID>"	
 
 Add origin to git repo link
 git remote add origin https://github.com/ansh-saraswat/node_sample_project.git
@@ -52,15 +52,13 @@ configure Node on EC2 instance
 chmod 400 node-demo-key.pem​
 ssh -i node-demo-key.pem ubuntu@<EC2_PUBLIC_IP>​
 
-​
-
-# 2. install Node.js 22 and PM2 on the server​
+​# install Node.js 22 and PM2 on the server​
 sudo apt update​
 curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash
 sudo apt install -y nodejs​
 sudo npm install -g pm2​​
 
-# 3. create the app folder and verify​
+# create the app folder and verify​
 mkdir -p ~/app​
 node -v && pm2 -v​
 
@@ -72,9 +70,15 @@ Your_Secret_Name	EC2_HOST​
 Secret value		<EC2_PUBLIC_IP>
 
 Your_Secret_Name	EC2_USER
-Secret value		Anshul-web
+Secret value		ubuntu
 
 Your_Secret_Name	EC2_Pass
-Secret value		pixi@123
+Secret value		g862US8ckY50
 
+# run these commands to connect ubuntu user with password on EC2 
+sudo passwd
+sudo sed -i 's/^PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+sudo systemctl restart ssh
+
+# Add .github/workflows/demo.yml
 
