@@ -43,6 +43,13 @@ jobs:
   #        echo "HOST length: ${#EC2_HOST}"
   #        echo "USER length: ${#EC2_USER}"
   #        echo "PASS length: ${#SSHPASS}"
+  
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
 
       - name: Prepare SSH access
         run: |
