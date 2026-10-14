@@ -30,7 +30,13 @@ jobs:
         run: |
           npm ci
           npm test --if-present
-
+      - name: Check variables
+        run: |
+          echo "Host exists: ${{ secrets.EC2_HOST != '' }}"
+          echo "User exists: ${{ secrets.EC2_USER != '' }}"
+          echo "Password exists: ${{ secrets.EC2_PASS != '' }}" 
+          echo "All variables checked."
+          
       - name: Prepare SSH access
         run: |
           sudo apt-get update
