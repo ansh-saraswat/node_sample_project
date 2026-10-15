@@ -82,3 +82,6 @@ sudo systemctl restart ssh
 
 # Add .github/workflows/demo.yml
 
+
+# Open it on http://<public-IP>:3000/
+
