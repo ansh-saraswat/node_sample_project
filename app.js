@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
     <body>
         <div class="card">
             <h1>🚀 Node.js App Deployed</h1>
-            <p>Hello from EC2 via GitHub Actions!</p>
+            <p>Hello from EC2 via GitHub Actions! v1.0</p>
             <div class="badge">Version 1.0</div>
         </div>
     </body>
