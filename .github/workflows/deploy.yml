@@ -1,0 +1,61 @@
+name: Deploy Node App to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+env:
+  EC2_HOST: ${{ secrets.EC2_HOST }}
+  EC2_USER: ${{ secrets.EC2_USER }}
+  SSHPASS: ${{ secrets.EC2_SSH_KEY }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install and test
+        run: |
+          npm ci
+          npm test --if-present
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
+
+      - name: Prepare SSH access
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+          mkdir -p ~/.ssh
+          ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
+
+      - name: Copy files to EC2
+        run: |
+          rsync -az --delete \
+            --exclude node_modules \
+            --exclude .git \
+            -e "sshpass -e ssh" \
+            ./ $EC2_USER@$EC2_HOST:~/app/
+
+      - name: Install dependencies and restart application
+        run: |
+          sshpass -e ssh $EC2_USER@$EC2_HOST \
+          "cd ~/app && \
+           npm ci --omit=dev && \
+           (pm2 restart node-app || pm2 start app.js --name node-app)"
